@@ -1,5 +1,5 @@
 Makefile
-activation.jar
 classes/
 config.log
 config.status
+target
