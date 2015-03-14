@@ -106,6 +106,8 @@ import java.util.Map;
 
 
 /**
+ * NOTE THIS FILE WAS HEAVILY HACKED DOWN, IT CONTAINS JUST ENOUGH FOR THE ANDROID FORK TO COMPILE
+ *
  * Provides a set of functions to be shared among the DataFlavor class and
  * platform-specific data transfer implementations.
  *
