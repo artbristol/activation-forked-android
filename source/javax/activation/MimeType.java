@@ -253,7 +253,7 @@ public class MimeType
     checkValidity(subType, "Sub type is invalid");
   }
 
-  static void checkValidity(String token, String message)
+  public static void checkValidity(String token, String message)
     throws MimeTypeParseException
   {
     int len = token.length();
@@ -271,7 +271,7 @@ public class MimeType
       }
   }
   
-  static boolean isValidChar(char c)
+  public static boolean isValidChar(char c)
   {
     return c > ' ' && c <= '~' && TSPECIALS.indexOf(c) == -1;
   }

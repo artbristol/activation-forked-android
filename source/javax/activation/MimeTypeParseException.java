@@ -58,7 +58,7 @@ public class MimeTypeParseException
    * @param message the exception message
    * @param token the token in error
    */
-  MimeTypeParseException(String message, String token)
+  public MimeTypeParseException(String message, String token)
   {
     this(new StringBuffer(message)
          .append(':')
