@@ -26,9 +26,9 @@
  */
 package javax.activation;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
+import eu.ocathain.awt.datatransfer.DataFlavor;
+import eu.ocathain.awt.datatransfer.Transferable;
+import eu.ocathain.awt.datatransfer.UnsupportedFlavorException;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;

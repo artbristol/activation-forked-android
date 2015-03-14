@@ -27,7 +27,7 @@
 
 package javax.activation;
 
-import java.awt.datatransfer.DataFlavor;
+import eu.ocathain.awt.datatransfer.DataFlavor;
 import java.io.InputStream;
 
 /**
