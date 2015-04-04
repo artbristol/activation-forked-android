@@ -1,5 +1,5 @@
 /*
- * DataHandler.java
+ * DataContentHandler.java
  * Copyright (C) 2004 The Free Software Foundation
  * 
  * This file is part of GNU Java Activation Framework (JAF), a library.
@@ -24,50 +24,52 @@
  * This exception does not however invalidate any other reasons why the
  * executable file might be covered by the GNU General Public License.
  */
-package javax.activation;
+package eu.ocathain.javax.activation;
 
-import java.io.InputStream;
+import eu.ocathain.awt.datatransfer.DataFlavor;
+import eu.ocathain.awt.datatransfer.UnsupportedFlavorException;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Data source that is a proxy for a data handler.
+ * Provider that can convert streams to objects and vice versa.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  * @version 1.1
  */
-final class DataHandlerDataSource
-  implements DataSource
+public interface DataContentHandler
 {
 
-  final DataHandler dh;
+  /**
+   * Returns a list of the flavors that data can be provided in, ordered
+   * by preference.
+   */
+  DataFlavor[] getTransferDataFlavors();
   
-  DataHandlerDataSource(DataHandler dh)
-  {
-    this.dh = dh;
-  }
+  /**
+   * Returns an object representing the data to be transferred.
+   * @param df the flavor representing the requested type
+   * @param ds the data source of the data to be converted
+   */
+  Object getTransferData(DataFlavor df, DataSource ds)
+    throws UnsupportedFlavorException, IOException;
   
-  public String getContentType()
-  {
-    return dh.getContentType();
-  }
+  /**
+   * Returns an object representing the data in its most preferred form.
+   * @param ds the data source of the data to be converted
+   */
+  Object getContent(DataSource ds)
+    throws IOException;
   
-  public InputStream getInputStream()
-    throws IOException
-  {
-    return dh.getInputStream();
-  }
+  /**
+   * Writes the object as a stream of bytes.
+   * @param obj the object to convert
+   * @param mimeType the MIME type of the stream
+   * @param os the byte stream
+   */
+  void writeTo(Object obj, String mimeType, OutputStream os)
+    throws IOException;
   
-  public String getName()
-  {
-    return dh.getName();
-  }
-  
-  public OutputStream getOutputStream()
-    throws IOException
-  {
-    return dh.getOutputStream();
-  }
-
 }
 

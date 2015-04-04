@@ -1,5 +1,5 @@
 /*
- * CommandObject.java
+ * MimeTypeParseException.java
  * Copyright (C) 2004 The Free Software Foundation
  * 
  * This file is part of GNU Java Activation Framework (JAF), a library.
@@ -24,28 +24,48 @@
  * This exception does not however invalidate any other reasons why the
  * executable file might be covered by the GNU General Public License.
  */
-package javax.activation;
-
-import java.io.IOException;
+package eu.ocathain.javax.activation;
 
 /**
- * Bean interface to implement in order to receive notification of the
- * command verb.
+ * Exception thrown to indicate a malformed MIME content type.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  * @version 1.1
  */
-public interface CommandObject
+public class MimeTypeParseException
+  extends Exception
 {
 
   /**
-   * Initializes the command with the verb it is expected to perform and
-   * the data handler describing the data to operate on.
-   * @param verb the command verb
-   * @param dh the data handler describing the data to process
+   * Constructs a MimeTypeParseException with no detail message.
    */
-  void setCommandContext(String verb, DataHandler dh)
-    throws IOException;
+  public MimeTypeParseException()
+  {
+  }
+  
+  /**
+   * MimeTypeParseException with the specified detail message.
+   * @param message the exception message
+   */
+  public MimeTypeParseException(String message)
+  {
+    super(message);
+  }
+
+  /**
+   * Constructs a MimeTypeParseException with the specified detail message
+   * and token in error.
+   * @param message the exception message
+   * @param token the token in error
+   */
+  public MimeTypeParseException(String message, String token)
+  {
+    this(new StringBuffer(message)
+         .append(':')
+         .append(' ')
+         .append(token)
+         .toString());
+  }
   
 }
 

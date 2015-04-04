@@ -24,7 +24,7 @@
  * This exception does not however invalidate any other reasons why the
  * executable file might be covered by the GNU General Public License.
  */
-package javax.activation;
+package eu.ocathain.javax.activation;
 
 import java.util.ArrayList;
 import java.util.Enumeration;

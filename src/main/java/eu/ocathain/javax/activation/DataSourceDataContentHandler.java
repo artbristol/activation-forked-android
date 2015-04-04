@@ -1,5 +1,5 @@
 /*
- * ObjectDataContentHandler.java
+ * DataSourceDataContentHandler.java
  * Copyright (C) 2004 The Free Software Foundation
  * 
  * This file is part of GNU Java Activation Framework (JAF), a library.
@@ -24,46 +24,47 @@
  * This exception does not however invalidate any other reasons why the
  * executable file might be covered by the GNU General Public License.
  */
-package javax.activation;
+package eu.ocathain.javax.activation;
 
 import eu.ocathain.awt.datatransfer.DataFlavor;
 import eu.ocathain.awt.datatransfer.UnsupportedFlavorException;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Data content handler that uses an existing DCH and reified object.
+ * Data content handler using an existing DCH and a data source.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  * @version 1.1
  */
-class ObjectDataContentHandler
+class DataSourceDataContentHandler
   implements DataContentHandler
 {
 
-  private DataContentHandler dch;
-  private Object object;
-  private String mimeType;
+  private DataSource ds;
   private DataFlavor[] flavors;
+  private DataContentHandler dch;
   
-  public ObjectDataContentHandler(DataContentHandler dch, Object object,
-                                  String mimeType)
+  public DataSourceDataContentHandler(DataContentHandler dch, DataSource ds)
   {
+    this.ds = ds;
     this.dch = dch;
-    this.object = object;
-    this.mimeType = mimeType;
   }
   
   public Object getContent(DataSource ds)
+    throws IOException
   {
-    return object;
+    if (dch != null)
+      {
+        return dch.getContent(ds);
+      }
+    else
+      {
+        return ds.getInputStream();
+      }
   }
   
-  public DataContentHandler getDCH()
-  {
-    return dch;
-  }
-
   public Object getTransferData(DataFlavor flavor, DataSource ds)
     throws UnsupportedFlavorException, IOException
   {
@@ -71,15 +72,15 @@ class ObjectDataContentHandler
       {
         return dch.getTransferData(flavor, ds);
       }
-    if (flavors == null)
+    DataFlavor[] tdf = getTransferDataFlavors();
+    if (tdf.length > 0 && flavor.equals(tdf[0]))
       {
-        getTransferDataFlavors();
+        return ds.getInputStream();
       }
-    if (flavor.equals(flavors[0]))
+    else
       {
-        return object;
+        throw new UnsupportedFlavorException(flavor);
       }
-    throw new UnsupportedFlavorException(flavor);
   }
   
   public DataFlavor[] getTransferDataFlavors()
@@ -92,26 +93,24 @@ class ObjectDataContentHandler
           }
         else
           {
+            String mimeType = ds.getContentType();
             flavors = new DataFlavor[1];
-            flavors[0] = new ActivationDataFlavor(object.getClass(),
-                                                  mimeType, mimeType);
+            flavors[0] = new ActivationDataFlavor(mimeType, mimeType);
           }
       }
     return flavors;
   }
 
-  public void writeTo(Object object, String mimeType, OutputStream out)
+  public void writeTo(Object obj, String mimeType, OutputStream out)
     throws IOException
   {
-    if (dch != null)
+    if (dch == null)
       {
-        dch.writeTo(object, mimeType, out);
+        throw new UnsupportedDataTypeException("no DCH for content type " +
+                                               ds.getContentType());
       }
-    else
-      {
-        throw new UnsupportedDataTypeException("no object DCH for MIME type " + mimeType);
-      }
+    dch.writeTo(obj, mimeType, out);
   }
-  
+    
 }
 

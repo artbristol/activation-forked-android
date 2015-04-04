@@ -1,5 +1,5 @@
 /*
- * DataContentHandler.java
+ * DataContentHandlerFactory.java
  * Copyright (C) 2004 The Free Software Foundation
  * 
  * This file is part of GNU Java Activation Framework (JAF), a library.
@@ -24,51 +24,22 @@
  * This exception does not however invalidate any other reasons why the
  * executable file might be covered by the GNU General Public License.
  */
-package javax.activation;
-
-import eu.ocathain.awt.datatransfer.DataFlavor;
-import eu.ocathain.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
-import java.io.OutputStream;
+package eu.ocathain.javax.activation;
 
 /**
- * Provider that can convert streams to objects and vice versa.
+ * Factory interface for creating data content handlers.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  * @version 1.1
  */
-public interface DataContentHandler
+public interface DataContentHandlerFactory
 {
 
   /**
-   * Returns a list of the flavors that data can be provided in, ordered
-   * by preference.
+   * Returns a new data content handler for the specified MIME type.
+   * @param mimeType the MIME type
    */
-  DataFlavor[] getTransferDataFlavors();
-  
-  /**
-   * Returns an object representing the data to be transferred.
-   * @param df the flavor representing the requested type
-   * @param ds the data source of the data to be converted
-   */
-  Object getTransferData(DataFlavor df, DataSource ds)
-    throws UnsupportedFlavorException, IOException;
-  
-  /**
-   * Returns an object representing the data in its most preferred form.
-   * @param ds the data source of the data to be converted
-   */
-  Object getContent(DataSource ds)
-    throws IOException;
-  
-  /**
-   * Writes the object as a stream of bytes.
-   * @param obj the object to convert
-   * @param mimeType the MIME type of the stream
-   * @param os the byte stream
-   */
-  void writeTo(Object obj, String mimeType, OutputStream os)
-    throws IOException;
+  DataContentHandler createDataContentHandler(String mimeType);
   
 }
 

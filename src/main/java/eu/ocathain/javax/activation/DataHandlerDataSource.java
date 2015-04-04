@@ -1,5 +1,5 @@
 /*
- * FileDataSource.java
+ * DataHandler.java
  * Copyright (C) 2004 The Free Software Foundation
  * 
  * This file is part of GNU Java Activation Framework (JAF), a library.
@@ -24,84 +24,50 @@
  * This exception does not however invalidate any other reasons why the
  * executable file might be covered by the GNU General Public License.
  */
-package javax.activation;
+package eu.ocathain.javax.activation;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
- * Data source encapsulating a file.
+ * Data source that is a proxy for a data handler.
  *
  * @author <a href='mailto:dog@gnu.org'>Chris Burdess</a>
  * @version 1.1
  */
-public class FileDataSource
+final class DataHandlerDataSource
   implements DataSource
 {
 
-  private File file;
-  private FileTypeMap typeMap;
+  final DataHandler dh;
   
-  /**
-   * Constructor.
-   * @param file the underlying file to use
-   */
-  public FileDataSource(File file)
+  DataHandlerDataSource(DataHandler dh)
   {
-    this.file = file;
+    this.dh = dh;
   }
   
-  /**
-   * Constructor.
-   * @param name the path to the underlying file to use
-   */
-  public FileDataSource(String name)
+  public String getContentType()
   {
-    this(new File(name));
+    return dh.getContentType();
   }
   
   public InputStream getInputStream()
     throws IOException
   {
-    return new FileInputStream(file);
-  }
-
-  public OutputStream getOutputStream()
-    throws IOException
-  {
-    return new FileOutputStream(file);
-  }
-  
-  public String getContentType()
-  {
-    if (typeMap == null)
-      {
-        FileTypeMap dftm = FileTypeMap.getDefaultFileTypeMap();
-        return dftm.getContentType(file);
-      }
-    return typeMap.getContentType(file);
+    return dh.getInputStream();
   }
   
   public String getName()
   {
-    return file.getName();
+    return dh.getName();
   }
   
-  /**
-   * Returns the underlying file.
-   */
-  public File getFile()
+  public OutputStream getOutputStream()
+    throws IOException
   {
-    return file;
+    return dh.getOutputStream();
   }
 
-  /**
-   * Sets the file type map to use to determine the content type of the file.
-   * @param map the file type map
-   */
-  public void setFileTypeMap(FileTypeMap map)
-  {
-    typeMap = map;
-  }
-  
 }
 

@@ -25,9 +25,10 @@
  * executable file might be covered by the GNU General Public License.
  */
 
-package javax.activation;
+package eu.ocathain.javax.activation;
 
 import eu.ocathain.awt.datatransfer.DataFlavor;
+
 import java.io.InputStream;
 
 /**
