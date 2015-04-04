@@ -4,7 +4,7 @@
   <groupId>eu.ocathain.javax.activation</groupId>
   <artifactId>activation</artifactId>
   <packaging>jar</packaging>
-  <version>1.1.1</version>
+  <version>1.1.1.1-SNAPSHOT</version>
   <name>activation-forked-android</name>
   <description>A minimal port of Java Activation Framework with the AWT dependencies removed.
     Exists purely to allow the Android port of JavaMail to work.</description>
