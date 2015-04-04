@@ -24,8 +24,8 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@bitbucket. org:artbristol/activation-forked-android.git</connection>
-    <developerConnection>scm:git:git@bitbucket. org:artbristol/activation-forked-android.git</developerConnection>
+    <connection>scm:git:git@bitbucket.org:artbristol/activation-forked-android.git</connection>
+    <developerConnection>scm:git:git@bitbucket.org:artbristol/activation-forked-android.git</developerConnection>
     <url>https://bitbucket.org/artbristol/activation-forked-android</url>
   </scm>
 
